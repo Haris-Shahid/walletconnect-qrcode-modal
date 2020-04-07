@@ -1,0 +1,83 @@
+{
+  "name": "@walletconnect/qrcode-modal",
+  "version": "1.0.0-beta.74",
+  "description": "QR Code Modal for WalletConnect",
+  "keywords": [
+    "wallet",
+    "walletconnect",
+    "ethereum",
+    "jsonrpc",
+    "mobile",
+    "qrcode",
+    "web3",
+    "crypto",
+    "cryptocurrency",
+    "dapp"
+  ],
+  "main": "dist/index.js",
+  "umd:main": "dist/index.min.js",
+  "unpkg": "dist/index.min.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "WalletConnect <walletconnect.org>",
+  "homepage": "https://github.com/WalletConnect/walletconnect-monorepo/tree/v1.0.0-beta",
+  "license": "LGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walletconnect/walletconnect-monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/walletconnect/walletconnect-monorepo/issues"
+  },
+  "scripts": {
+    "clean:build": "rm -rf ./dist",
+    "prebuild": "run-s clean:build",
+    "lint": "eslint -c './.eslintrc' --fix './src/**/*.ts'",
+    "build": "microbundle-crl -f cjs,umd",
+    "start": "microbundle-crl watch -f cjs,umd",
+    "prepublish": "run-s build",
+    "test": "run-s test:unit test:lint test:build",
+    "test:build": "run-s build",
+    "test:lint": "eslint .",
+    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test --env=jsdom"
+  },
+  "devDependencies": {
+    "@types/node": "^13.11.0",
+    "@types/qr-image": "^3.2.1",
+    "@types/react": "^16.9.27",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "babel-eslint": "^10.0.3",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "gh-pages": "^2.2.0",
+    "microbundle-crl": "^0.13.8",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.1"
+  },
+  "dependencies": {
+    "@walletconnect/mobile-registry": "^1.0.0-beta.75",
+    "@walletconnect/types": "^1.0.0-beta.75",
+    "@walletconnect/utils": "^1.0.0-beta.75",
+    "qr-image": "^3.2.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
