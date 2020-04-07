@@ -17,7 +17,8 @@
   "main": "dist/index.js",
   "umd:main": "dist/index.min.js",
   "unpkg": "dist/index.min.js",
-  "types": "dist/index.d.ts",
+  "browser": "dist/index.min.js",
+  "types": "dist/src/index.d.ts",
   "engines": {
     "node": ">=10"
   },
@@ -35,11 +36,15 @@
     "url": "https://github.com/walletconnect/walletconnect-monorepo/issues"
   },
   "scripts": {
-    "clean:build": "rm -rf ./dist",
+    "copy:umd": "cpy ./dist/index.min.js ./example",
+    "clean:build": "rm -rf ./dist ./example/index.min.js",
     "prebuild": "run-s clean:build",
+    "postbuild": "run-s copy:umd",
     "lint": "eslint -c './.eslintrc' --fix './src/**/*.ts'",
-    "build": "microbundle-crl -f cjs,umd",
-    "start": "microbundle-crl watch -f cjs,umd",
+    "build:umd": "microbundle-crl -f umd --target web --name WalletConnectQRCodeModal --tsconfig ./tsconfig.umd.json",
+    "build:cjs": "microbundle-crl --no-compress -f cjs --tsconfig ./tsconfig.cjs.json",
+    "build": "run-s build:cjs build:umd",
+    "start": "microbundle-crl watch -f cjs",
     "prepublish": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
@@ -54,6 +59,7 @@
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "babel-eslint": "^10.0.3",
+    "cpy-cli": "^3.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
